@@ -51,4 +51,16 @@ def validate_figures(values):
     return True
 
 
-get_sales_figures()
+def write_figures_into_worksheet(figures):
+    '''
+    Write figures into worksheet, adding new row with listed figures.
+    '''
+    print('Update sales worksheet...\n')
+    sales_worksheet = SHEET.worksheet('sales')
+    sales_worksheet.append_row(figures)
+    print('Sales worksheet updated successfully.\n')
+
+
+figures = get_sales_figures()
+converted_figures = [int(figure) for figure in figures]
+write_figures_into_worksheet(converted_figures)
