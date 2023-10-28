@@ -22,7 +22,7 @@ def get_sales_figures():
     print('Example: 10,20,30,40,50,60\n')
 
     figures_str = input('Enter figures here: ')
-   
+
     sales_figures = figures_str.split(',')
     validate_figures(sales_figures)
 
@@ -33,7 +33,9 @@ def validate_figures(values):
     Raises ValueError is strings cannot be converted into integers,
     or there aren't exactly 6 values
     '''
+    print(values)
     try:
+        [int(value) for value in values]
         if len(values) != 6:
             raise ValueError(
                 f'Exactly 6 values are expected, but you provided {len(values)}'
