@@ -12,6 +12,7 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('love_sandwiches')
 
+
 def get_sales_figures():
     '''
     Get sales figures input
@@ -20,7 +21,25 @@ def get_sales_figures():
     print('Figures should be six numbers, separated by commas')
     print('Example: 10,20,30,40,50,60\n')
 
-    data_str = input('Enter figures here: ')
-    print(f'The figures provided are {data_str}')
+    figures_str = input('Enter figures here: ')
+   
+    sales_figures = figures_str.split(',')
+    validate_figures(sales_figures)
+
+
+def validate_figures(values):
+    '''
+    Try converting all string values into integers.
+    Raises ValueError is strings cannot be converted into integers,
+    or there aren't exactly 6 values
+    '''
+    try:
+        if len(values) != 6:
+            raise ValueError(
+                f'Exactly 6 values are expected, but you provided {len(values)}'
+            )
+    except ValueError as error:
+        print(f'Invalid data: {error}, please try again.\n')
+
 
 get_sales_figures()
