@@ -52,24 +52,15 @@ def validate_figures(values):
     return True
 
 
-def write_figures_into_worksheet(figures):
+def update_worksheet(data, worksheet):
     '''
-    Write figures into worksheet, adding new row with listed figures.
+    Write surplus sandwiches into worksheet, adding new row 
+    with listed updated figures.
     '''
-    print('Update sales worksheet...\n')
-    sales_worksheet = SHEET.worksheet('sales')
-    sales_worksheet.append_row(figures)
-    print('Sales worksheet updated successfully.\n')
-
-
-def write_surplus_into_worksheet(updated_stock):
-    '''
-    Write surplus sandwiches into worksheet, adding new row with listed updated figures.
-    '''
-    print('Update surplus worksheet...\n')
-    surplus_worksheet = SHEET.worksheet('surplus')
-    surplus_worksheet.append_row(updated_stock)
-    print('Surplus worksheet updated successfully.\n')
+    print(f'Update {worksheet} worksheet...\n')
+    worksheet_to_update = SHEET.worksheet(worksheet)
+    worksheet_to_update.append_row(data)
+    print(f'{worksheet.capitalize()} worksheet updated successfully.\n')
 
 
 def calculate_surplus_sandwiches(sales_row):
@@ -97,9 +88,9 @@ def main():
     '''
     figures = get_sales_figures()
     converted_figures = [int(figure) for figure in figures]
-    write_figures_into_worksheet(converted_figures)
+    update_worksheet(converted_figures, 'sales')
     updated_stock = calculate_surplus_sandwiches(converted_figures)
-    write_surplus_into_worksheet(updated_stock)
+    update_worksheet(updated_stock, 'surplus')
 
 
 print('Welcome to Love Sandwiches Date Automation')
