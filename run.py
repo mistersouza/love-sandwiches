@@ -96,6 +96,20 @@ def get_last_entries(entries=5):
     return columns
 
 
+def calculate_stock_sandwiches(sales):
+    '''
+    Calculate teh average stock for each type, addint 10%
+    '''
+    print('Calculating recommended stock...\n')
+    recommended_stock = []
+    for column in sales:
+        int_column =[int(num) for num in column]
+        average = sum(int_column) / len(int_column)
+        stock = average * 1.1
+        recommended_stock.append(round(stock))
+    return recommended_stock
+
+
 def main():
     '''
     Run program
@@ -105,8 +119,10 @@ def main():
     update_worksheet(converted_figures, 'sales')
     updated_stock = calculate_surplus_sandwiches(converted_figures)
     update_worksheet(updated_stock, 'surplus')
+    last_sales = get_last_entries()
+    stock_sandwiches = calculate_stock_sandwiches(last_sales)
+    update_worksheet(stock_sandwiches, 'stock')
 
 
 print('Welcome to Love Sandwiches Date Automation')
-# main()
-get_last_entries()
+main()
