@@ -48,7 +48,7 @@ def validate_figures(values):
             )
     except ValueError as error:
         print(f'Invalid data: {error}, please try again.\n')
-        return False     
+        return False 
     return True
 
 
@@ -82,6 +82,20 @@ def calculate_surplus_sandwiches(sales_row):
     return surplus_sandwiches
 
 
+def get_last_entries(entries=5):
+    '''
+    Collect collumns of data from sales worksheet, collecting
+    the last 5 entries for each sandwich and returns the date as a list of lists
+    '''
+    sales = SHEET.worksheet('sales')
+
+    columns = []
+    for index in range(1, 7):
+        column = column = sales.col_values(index)
+        columns.append(column[-5:])
+    return columns
+
+
 def main():
     '''
     Run program
@@ -94,4 +108,5 @@ def main():
 
 
 print('Welcome to Love Sandwiches Date Automation')
-main()
+# main()
+get_last_entries()
