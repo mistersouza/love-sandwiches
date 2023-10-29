@@ -1,5 +1,6 @@
 import gspread
 from google.oauth2.service_account import Credentials
+from pprint import pprint
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -61,6 +62,29 @@ def write_figures_into_worksheet(figures):
     print('Sales worksheet updated successfully.\n')
 
 
-figures = get_sales_figures()
-converted_figures = [int(figure) for figure in figures]
-write_figures_into_worksheet(converted_figures)
+def calculate_surplus_sandwiches(sales_row):
+    '''
+    Compare sales with stock and calculate the surplus for each item type.
+
+    the Surplus is defined as teh slaes figure subtract from stock:
+    - Positive surplis idicates waste
+    - Negative surplus idicates extra made when stock was sold out.
+    '''
+    print('Calculatting surplus sandwiches...\n')
+    stock = SHEET.worksheet('stock').get_all_values()
+    stock_row = stock[-1]
+    pprint(stock_row)
+
+
+def main():
+    '''
+    Run program
+    '''
+    figures = get_sales_figures()
+    converted_figures = [int(figure) for figure in figures]
+    write_figures_into_worksheet(converted_figures)
+    calculate_surplus_sandwiches(converted_figures)
+
+
+print('Welcome to Love Sandwiches Date Automation')
+main()
