@@ -62,6 +62,16 @@ def write_figures_into_worksheet(figures):
     print('Sales worksheet updated successfully.\n')
 
 
+def write_surplus_into_worksheet(updated_stock):
+    '''
+    Write surplus sandwiches into worksheet, adding new row with listed updated figures.
+    '''
+    print('Update surplus worksheet...\n')
+    surplus_worksheet = SHEET.worksheet('surplus')
+    surplus_worksheet.append_row(updated_stock)
+    print('Surplus worksheet updated successfully.\n')
+
+
 def calculate_surplus_sandwiches(sales_row):
     '''
     Compare sales with stock and calculate the surplus for each item type.
@@ -77,7 +87,7 @@ def calculate_surplus_sandwiches(sales_row):
     surplus_sandwiches = []
     for stock, sales in zip(stock_row, sales_row):
         surplus = int(stock) - sales
-        surplus_sandwiches.append(surplus)ches)
+        surplus_sandwiches.append(surplus)
     return surplus_sandwiches
 
 
@@ -89,7 +99,8 @@ def main():
     converted_figures = [int(figure) for figure in figures]
     write_figures_into_worksheet(converted_figures)
     updated_stock = calculate_surplus_sandwiches(converted_figures)
-    
+    write_surplus_into_worksheet(updated_stock)
+
 
 print('Welcome to Love Sandwiches Date Automation')
 main()
