@@ -73,7 +73,12 @@ def calculate_surplus_sandwiches(sales_row):
     print('Calculatting surplus sandwiches...\n')
     stock = SHEET.worksheet('stock').get_all_values()
     stock_row = stock[-1]
-    pprint(stock_row)
+
+    surplus_sandwiches = []
+    for stock, sales in zip(stock_row, sales_row):
+        surplus = int(stock) - sales
+        surplus_sandwiches.append(surplus)ches)
+    return surplus_sandwiches
 
 
 def main():
@@ -83,8 +88,8 @@ def main():
     figures = get_sales_figures()
     converted_figures = [int(figure) for figure in figures]
     write_figures_into_worksheet(converted_figures)
-    calculate_surplus_sandwiches(converted_figures)
-
+    updated_stock = calculate_surplus_sandwiches(converted_figures)
+    
 
 print('Welcome to Love Sandwiches Date Automation')
 main()
