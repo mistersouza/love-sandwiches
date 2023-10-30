@@ -1,6 +1,5 @@
 import gspread
 from google.oauth2.service_account import Credentials
-from pprint import pprint
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -23,7 +22,7 @@ def get_sales_figures():
         print('Figures should be six numbers, separated by commas')
         print('Example: 10,20,30,40,50,60\n')
 
-        figures_str = input('Enter figures here: ')
+        figures_str = input('Enter figures here:\n')
 
         sales_figures = figures_str.split(',')
 
